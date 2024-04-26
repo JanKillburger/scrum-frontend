@@ -3,8 +3,8 @@ export interface NewTask {
   description: string;
   due_date: string;
   status: string;
-  created_by: number;
-  assigned_to: number;
+  created_by: User;
+  assigned_to: User;
   subtasks: SubTask[];
 }
 
@@ -19,4 +19,11 @@ export interface NewSubTask {
 
 export interface SubTask extends NewSubTask {
   id: number;
+}
+
+export interface User {
+  id: number;
+  username: string;
+  first_name: string;
+  last_name: string;
 }

@@ -1,38 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { Task } from '../interfaces';
+import { DatePipe } from '@angular/common';
+import { TasksService } from '../tasks.service';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [],
+  imports: [DatePipe],
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent implements OnInit{
+export class HomeComponent implements OnInit {
+
+  constructor(private tasksService: TasksService) { }
+
   tasks: Task[] = [];
 
   ngOnInit() {
-    this.tasks = [
-      {
-        title: "Task 1",
-        description: "desc",
-        id: 1,
-        due_date: "2024-04-21",
-        status: "open",
-        created_by: 1,
-        assigned_to: 1,
-        subtasks: []
-      },
-      {
-        title: "Task 2",
-        description: "desc",
-        id: 1,
-        due_date: "2024-04-28",
-        status: "completed",
-        created_by: 2,
-        assigned_to: 2,
-        subtasks: []
-      }
-    ]
+    this.tasksService.getTasks()
+      .subscribe(data => this.tasks = data)
   }
 }

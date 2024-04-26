@@ -1,4 +1,4 @@
-<table class="table">
+<table class="table max-w-2xl mx-auto">
   <thead>
     <tr>
       <th>Title</th>
@@ -12,10 +12,10 @@
     @for (task of tasks; track task.id) {
     <tr>
       <td>{{ task.title }}</td>
-      <td>{{ task.due_date }}</td>
-      <td>{{ task.assigned_to }}</td>
+      <td>{{ task.due_date | date }}</td>
+      <td>{{ task.assigned_to.username }}</td>
       <td>{{ task.status }}</td>
-      <td><button>edit</button></td>
+      <td><button class="btn btn-primary">edit</button></td>
     </tr>
     }
   </tbody>
