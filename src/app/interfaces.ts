@@ -21,9 +21,17 @@ export interface SubTask extends NewSubTask {
   id: number;
 }
 
-export interface User {
-  id: number;
+export interface NewUser {
   username: string;
   first_name: string;
   last_name: string;
+}
+
+export interface User extends NewUser {
+  id: number;
+}
+
+export interface SelectOption {
+  id: number | string;
+  value: string;
 }

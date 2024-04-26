@@ -1,0 +1,21 @@
+<label class="form-control">
+  <span class="label">{{ label }}:</span>
+  @if (type === 'textarea') {
+  <textarea [placeholder]="placeholder" class="textarea textarea-bordered h-24" [formControl]="control"></textarea>
+  } @else {
+  <input
+    class="input input-bordered"
+    [ngClass]="{'w-full max-w-xs': type === 'date'}"
+    [type]="type"
+    [placeholder]="placeholder"
+    [formControl]="control"
+  />
+  } @if (control.touched && control.dirty) {
+  <p class="text-error">
+    @if (control.errors?.required) { This field is required. } @else if
+    (control.errors?.minlength) { You entered
+    {{ control.errors?.minlength.actualLength }} characters. This field needs at
+    least {{ control.errors?.minlength.requiredLength }} characters. }
+  </p>
+  }
+</label>

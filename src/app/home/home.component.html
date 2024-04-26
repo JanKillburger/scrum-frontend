@@ -1,22 +1,38 @@
-<table class="table max-w-2xl mx-auto">
-  <thead>
+<table class="table max-w-3xl mx-auto">
+  <thead class="sticky top-0 bg-base-100">
     <tr>
       <th>Title</th>
-      <th>Due Date</th>
-      <th>Assigned To</th>
-      <th>Status</th>
-      <th>Action</th>
+      <th class="hidden lg:table-cell">Due Date</th>
+      <th class="hidden lg:table-cell">Assigned To</th>
+      <th class="hidden lg:table-cell">Status</th>
+      <th>Actions</th>
+      <th></th>
     </tr>
   </thead>
   <tbody>
     @for (task of tasks; track task.id) {
     <tr>
       <td>{{ task.title }}</td>
-      <td>{{ task.due_date | date }}</td>
-      <td>{{ task.assigned_to.username }}</td>
-      <td>{{ task.status }}</td>
-      <td><button class="btn btn-primary">edit</button></td>
+      <td class="hidden lg:table-cell">{{ task.due_date | date }}</td>
+      <td class="hidden lg:table-cell">{{ task.assigned_to.username }}</td>
+      <td class="hidden lg:table-cell">{{ task.status }}</td>
+      <td>
+        <button class="btn btn-primary" (click)="showTaskInDialog(task.id)">
+          edit
+        </button>
+      </td>
+      <td>
+        <button (click)="deleteTask(task.id)" class="btn btn-primary">
+          delete
+        </button>
+      </td>
     </tr>
     }
   </tbody>
 </table>
+<dialog #taskdialog class="modal modal-bottom sm:modal-middle">
+  <app-task-form [selectedId]="selectedTaskId" [tasks]="tasks" class="modal-box"></app-task-form>
+  <form method="dialog" class="modal-backdrop">
+    <button>close</button>
+  </form>
+</dialog>

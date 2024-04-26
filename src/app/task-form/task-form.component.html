@@ -1,0 +1,7 @@
+<form [formGroup]="taskForm">
+  <app-input [control]="taskForm.controls.title" label="Title"></app-input>
+  <app-input [control]="taskForm.controls.description" label="Description" type="textarea"></app-input>
+  <app-input [control]="taskForm.controls.due_date" label="Due Date" type="date"></app-input>
+  <app-select [options]="[{id:'open', value: 'Open'},{id:'completed', value: 'Completed'}]" [control]="taskForm.controls.status" label="Status"></app-select>
+  <app-select [options]="userOptions" [control]="taskForm.controls.assigned_to" label="Assigned To"></app-select>
+</form>
