@@ -1,0 +1,22 @@
+<table class="table">
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Due Date</th>
+      <th>Assigned To</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    @for (task of tasks; track task.id) {
+    <tr>
+      <td>{{ task.title }}</td>
+      <td>{{ task.due_date }}</td>
+      <td>{{ task.assigned_to }}</td>
+      <td>{{ task.status }}</td>
+      <td><button>edit</button></td>
+    </tr>
+    }
+  </tbody>
+</table>
