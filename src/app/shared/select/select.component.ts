@@ -13,4 +13,5 @@ export class SelectComponent {
   @Input() label = ''
   @Input() options: SelectOption[] = []
   @Input() control = new FormControl()
+  @Input() default = 'Pick one'
 }

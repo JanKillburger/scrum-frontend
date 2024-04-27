@@ -33,4 +33,8 @@ export class HomeComponent implements OnInit {
     this.selectedTaskId = id;
     this.taskdialog.nativeElement.showModal();
   }
+
+  getSelectedTask() {
+    return this.tasks.find(t => t.id === this.selectedTaskId) ?? null
+  }
 }

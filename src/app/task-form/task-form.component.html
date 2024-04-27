@@ -3,5 +3,5 @@
   <app-input [control]="taskForm.controls.description" label="Description" type="textarea"></app-input>
   <app-input [control]="taskForm.controls.dueDate" label="Due Date" type="date"></app-input>
   <app-select [options]="[{id:'open', value: 'Open'},{id:'completed', value: 'Completed'}]" [control]="taskForm.controls.status" label="Status"></app-select>
-  <app-select [options]="userOptions" [control]="taskForm.controls.assignedTo" label="Assigned To"></app-select>
+  <app-select [options]="userOptions" [control]="taskForm.controls.assignedTo" label="Assigned To" default="Select user"></app-select>
 </form>

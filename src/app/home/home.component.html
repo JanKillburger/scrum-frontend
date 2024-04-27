@@ -30,9 +30,9 @@
     }
   </tbody>
 </table>
-<button class="btn btn-primary" (click)="showTaskInDialog(0)">Add task</button>
+<button class="btn btn-primary" (click)="showTaskInDialog(0)">New task</button>
 <dialog #taskdialog class="modal modal-bottom sm:modal-middle">
-  <app-task-form [selectedId]="selectedTaskId" [tasks]="tasks" class="modal-box"></app-task-form>
+  <app-task-form [task]="getSelectedTask()" class="modal-box"></app-task-form>
   <form method="dialog" class="modal-backdrop">
     <button>close</button>
   </form>

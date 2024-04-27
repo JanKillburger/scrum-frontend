@@ -14,23 +14,9 @@ import { Task } from '../interfaces';
   styleUrl: './task-form.component.css'
 })
 export class TaskFormComponent implements OnChanges {
-  @Input() selectedId: number | null = null;
-  @Input() tasks: Task[] = []
   @Input() task: Task | null = null
-  constructor(private tasksService: TasksService, private formBuilder: FormBuilder) { this.setUserOptions() }
 
   userOptions: { id: number, value: string }[] = []
-  // taskForm = new FormGroup({
-  //   title: new FormControl('', [
-  //     Validators.required,
-  //     Validators.minLength(5)
-  //   ]),
-  //   description: new FormControl(''),
-  //   status: new FormControl('Pick one'),
-  //   due_date: new FormControl(''),
-  //   assigned_to: new FormControl(),
-  // })
-
   taskForm = this.formBuilder.group({
     title: ['',[Validators.required, Validators.minLength(5)]],
     description: [''],
@@ -39,15 +25,16 @@ export class TaskFormComponent implements OnChanges {
     assignedTo: [0],
   })
 
+  constructor(private tasksService: TasksService, private formBuilder: FormBuilder) { this.setUserOptions() }
+
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.selectedId) {
-      this.setForm(changes.selectedId.currentValue)
+    if (changes.task) {
+      this.setForm()
     }
   }
 
-  setForm(id: number) {
-    const task = this.tasks.find(t => t.id === id)
-    if (task === undefined) {
+  setForm() {
+    if (this.task === null) {
       this.taskForm.reset({
         title: '',
         description: '',
@@ -57,11 +44,11 @@ export class TaskFormComponent implements OnChanges {
       });
     } else {
       this.taskForm.reset({
-        title: task.title,
-        description: task.description,
-        status: task.status,
-        assignedTo: task.assigned_to.id,
-        dueDate: task.due_date
+        title: this.task.title,
+        description: this.task.description,
+        status: this.task.status,
+        assignedTo: this.task.assigned_to.id,
+        dueDate: this.task.due_date
       })
     }
   }

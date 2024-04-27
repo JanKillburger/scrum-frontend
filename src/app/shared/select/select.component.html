@@ -1,7 +1,7 @@
 <label class="form-control w-full max-w-xs">
   <span class="label">{{ label }}:</span>
   <select class="select select-bordered" [formControl]="control">
-    <option disabled value="0">Pick one</option>
+    <option disabled value="0">{{ default }}</option>
     @for (option of options; track option.id) {
     <option [value]="option.id">{{ option.value }}</option>
     }
