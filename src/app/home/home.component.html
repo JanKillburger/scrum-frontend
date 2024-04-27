@@ -30,6 +30,7 @@
     }
   </tbody>
 </table>
+<button class="btn btn-primary" (click)="showTaskInDialog(0)">Add task</button>
 <dialog #taskdialog class="modal modal-bottom sm:modal-middle">
   <app-task-form [selectedId]="selectedTaskId" [tasks]="tasks" class="modal-box"></app-task-form>
   <form method="dialog" class="modal-backdrop">

@@ -1,6 +1,6 @@
 import { JsonPipe } from '@angular/common';
 import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { InputComponent } from '../shared/input/input.component';
 import { SelectComponent } from '../shared/select/select.component';
 import { TasksService } from '../tasks.service';
@@ -13,26 +13,31 @@ import { Task } from '../interfaces';
   templateUrl: './task-form.component.html',
   styleUrl: './task-form.component.css'
 })
-export class TaskFormComponent implements OnInit, OnChanges {
-  @Input() selectedId = 0;
+export class TaskFormComponent implements OnChanges {
+  @Input() selectedId: number | null = null;
   @Input() tasks: Task[] = []
-  constructor(private tasksService: TasksService) { this.setUserOptions() }
+  @Input() task: Task | null = null
+  constructor(private tasksService: TasksService, private formBuilder: FormBuilder) { this.setUserOptions() }
 
   userOptions: { id: number, value: string }[] = []
-  taskForm = new FormGroup({
-    title: new FormControl('', [
-      Validators.required,
-      Validators.minLength(5)
-    ]),
-    description: new FormControl(''),
-    status: new FormControl('Pick one'),
-    due_date: new FormControl(''),
-    assigned_to: new FormControl(),
-  })
+  // taskForm = new FormGroup({
+  //   title: new FormControl('', [
+  //     Validators.required,
+  //     Validators.minLength(5)
+  //   ]),
+  //   description: new FormControl(''),
+  //   status: new FormControl('Pick one'),
+  //   due_date: new FormControl(''),
+  //   assigned_to: new FormControl(),
+  // })
 
-  ngOnInit(): void {
-    this.setForm(this.selectedId);
-  }
+  taskForm = this.formBuilder.group({
+    title: ['',[Validators.required, Validators.minLength(5)]],
+    description: [''],
+    status: ['0'],
+    dueDate: [''],
+    assignedTo: [0],
+  })
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.selectedId) {
@@ -42,13 +47,22 @@ export class TaskFormComponent implements OnInit, OnChanges {
 
   setForm(id: number) {
     const task = this.tasks.find(t => t.id === id)
-    if (task) {
-      console.log(task)
-      this.taskForm.controls.title.setValue(task.title)
-      this.taskForm.controls.description.setValue(task.description)
-      this.taskForm.controls.status.setValue(task.status)
-      this.taskForm.controls.assigned_to.setValue(task.assigned_to.id ?? 0)
-      this.taskForm.controls.due_date.setValue(task.due_date)
+    if (task === undefined) {
+      this.taskForm.reset({
+        title: '',
+        description: '',
+        status: '0',
+        dueDate: '',
+        assignedTo: 0,
+      });
+    } else {
+      this.taskForm.reset({
+        title: task.title,
+        description: task.description,
+        status: task.status,
+        assignedTo: task.assigned_to.id,
+        dueDate: task.due_date
+      })
     }
   }
 
