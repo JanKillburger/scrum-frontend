@@ -44,6 +44,6 @@
   </div>
   <div class="flex justify-between">
     <button class="btn btn-primary" (click)="addSubtask()">New subtask</button>
-    <button class="btn btn-primary" (click)="saveTask()">Save</button>
+    <button class="btn btn-primary" (click)="saveTask()" [disabled]="taskForm.invalid">Save</button>
   </div>
 </form>

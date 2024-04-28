@@ -21,10 +21,10 @@ export class TaskFormComponent implements OnChanges {
   taskForm = this.formBuilder.group({
     id: [0],
     title: ['', [Validators.required, Validators.minLength(5)]],
-    description: [''],
+    description: ['', [Validators.required]],
     status: ['0'],
-    due_date: [''],
-    assigned_to: [0],
+    due_date: ['', [Validators.required]],
+    assigned_to: [0, [Validators.pattern(/[^0]+/)]],
     subtasks: this.formBuilder.array([])
   })
 
