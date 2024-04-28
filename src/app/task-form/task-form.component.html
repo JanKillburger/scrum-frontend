@@ -1,7 +1,49 @@
-<form [formGroup]="taskForm">
+<form [formGroup]="taskForm" class=" pb-4">
   <app-input [control]="taskForm.controls.title" label="Title"></app-input>
-  <app-input [control]="taskForm.controls.description" label="Description" type="textarea"></app-input>
-  <app-input [control]="taskForm.controls.dueDate" label="Due Date" type="date"></app-input>
-  <app-select [options]="[{id:'open', value: 'Open'},{id:'completed', value: 'Completed'}]" [control]="taskForm.controls.status" label="Status"></app-select>
-  <app-select [options]="userOptions" [control]="taskForm.controls.assignedTo" label="Assigned To" default="Select user"></app-select>
+  <app-input
+    [control]="taskForm.controls.description"
+    label="Description"
+    type="textarea"
+  ></app-input>
+  <app-input
+    [control]="taskForm.controls.due_date"
+    label="Due Date"
+    type="date"
+  ></app-input>
+  <app-select
+    [options]="[
+      { id: 'open', value: 'Open' },
+      { id: 'completed', value: 'Completed' }
+    ]"
+    [control]="taskForm.controls.status"
+    label="Status"
+  ></app-select>
+  <app-select
+    [options]="userOptions"
+    [control]="taskForm.controls.assigned_to"
+    label="Assigned To"
+    default="Select user"
+  ></app-select>
+  <div formArrayName="subtasks">
+    @for (subtask of subtasks.controls; track subtask.value) {
+    <div [formGroupName]="$index" class="my-4 gap-2 flex flex-col sm:flex-row sm:items-center">
+      <label class="label gap-2"
+        ><span class="label-text">Completed:</span
+        ><input type="checkbox" formControlName="completed" class="checkbox"
+      /></label>
+      <input
+        formControlName="title"
+        type="text"
+        class="input input-bordered grow"
+      />
+      <button class="btn btn-primary btn-sm" (click)="removeSubtask($index)">
+        Remove
+      </button>
+    </div>
+    }
+  </div>
+  <div class="flex justify-between">
+    <button class="btn btn-primary" (click)="addSubtask()">New subtask</button>
+    <button class="btn btn-primary" (click)="saveTask()">Save</button>
+  </div>
 </form>

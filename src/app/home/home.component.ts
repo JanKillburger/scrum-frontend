@@ -2,7 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild, viewChild } from '@angular/co
 import { Task } from '../interfaces';
 import { DatePipe } from '@angular/common';
 import { TasksService } from '../tasks.service';
-import { TaskFormComponent } from '../task-form/task-form.component';
+import { TaskFormComponent, TaskResponse } from '../task-form/task-form.component';
 
 @Component({
   selector: 'app-home',
@@ -25,16 +25,26 @@ export class HomeComponent implements OnInit {
 
   deleteTask(id: number) {
     this.tasksService.deleteTask(id)
-      .subscribe(() => this.tasks = this.tasks.filter(t => t.id !== id)
+      .subscribe(
+        () => this.tasks = this.tasks.filter(t => t.id !== id)
       )
   }
 
-  showTaskInDialog(id: number){
+  showTaskInDialog(id: number) {
     this.selectedTaskId = id;
     this.taskdialog.nativeElement.showModal();
   }
 
   getSelectedTask() {
     return this.tasks.find(t => t.id === this.selectedTaskId) ?? null
+  }
+
+  updateListFromFormSubmission(resp: TaskResponse) {
+    if (resp.action === "updatedTask") {
+      this.tasks = this.tasks.map(t => t.id === resp.task.id ? resp.task : t)
+    } else if (resp.action === "createdTask") {
+      this.tasks.push(resp.task)
+    }
+    this.taskdialog.nativeElement.close()
   }
 }

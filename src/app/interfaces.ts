@@ -12,6 +12,10 @@ export interface Task extends NewTask {
   id: number;
 }
 
+export function isTask(task: Task | NewTask): task is Task {
+  return "id" in task
+}
+
 export interface NewSubTask {
   title: string;
   completed: boolean;

@@ -1,38 +1,46 @@
-<table class="table max-w-3xl mx-auto">
-  <thead class="sticky top-0 bg-base-100">
-    <tr>
-      <th>Title</th>
-      <th class="hidden lg:table-cell">Due Date</th>
-      <th class="hidden lg:table-cell">Assigned To</th>
-      <th class="hidden lg:table-cell">Status</th>
-      <th>Actions</th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    @for (task of tasks; track task.id) {
-    <tr>
-      <td>{{ task.title }}</td>
-      <td class="hidden lg:table-cell">{{ task.due_date | date }}</td>
-      <td class="hidden lg:table-cell">{{ task.assigned_to.username }}</td>
-      <td class="hidden lg:table-cell">{{ task.status }}</td>
-      <td>
-        <button class="btn btn-primary" (click)="showTaskInDialog(task.id)">
-          edit
-        </button>
-      </td>
-      <td>
-        <button (click)="deleteTask(task.id)" class="btn btn-primary">
-          delete
-        </button>
-      </td>
-    </tr>
-    }
-  </tbody>
-</table>
-<button class="btn btn-primary" (click)="showTaskInDialog(0)">New task</button>
+<div class="max-w-3xl mx-auto p-2">
+  <button class="btn btn-primary" (click)="showTaskInDialog(0)">
+    New task
+  </button>
+  <table class="table">
+    <thead class="sticky top-0 bg-base-100">
+      <tr>
+        <th>Title</th>
+        <th class="hidden lg:table-cell">Due Date</th>
+        <th class="hidden lg:table-cell">Assigned To</th>
+        <th class="hidden lg:table-cell">Status</th>
+        <th>Actions</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      @for (task of tasks; track task.id) {
+      <tr>
+        <td>{{ task.title }}</td>
+        <td class="hidden lg:table-cell">{{ task.due_date | date }}</td>
+        <td class="hidden lg:table-cell">{{ task.assigned_to.username }}</td>
+        <td class="hidden lg:table-cell">{{ task.status }}</td>
+        <td>
+          <button class="btn btn-primary" (click)="showTaskInDialog(task.id)">
+            edit
+          </button>
+        </td>
+        <td>
+          <button (click)="deleteTask(task.id)" class="btn btn-primary">
+            delete
+          </button>
+        </td>
+      </tr>
+      }
+    </tbody>
+  </table>
+</div>
 <dialog #taskdialog class="modal modal-bottom sm:modal-middle">
-  <app-task-form [task]="getSelectedTask()" class="modal-box"></app-task-form>
+  <app-task-form
+    [task]="getSelectedTask()"
+    class="modal-box"
+    (onFormSubmitResponse)="updateListFromFormSubmission($event)"
+  ></app-task-form>
   <form method="dialog" class="modal-backdrop">
     <button>close</button>
   </form>
