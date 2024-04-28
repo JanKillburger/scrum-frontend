@@ -8,7 +8,7 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-register',
   standalone: true,
-  imports: [FormsModule, NgIf, JsonPipe],
+  imports: [FormsModule, NgIf],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'
 })
@@ -28,7 +28,7 @@ register() {
   this.http.post(environment.apiUrl + 'register/', data)
     .subscribe({
       next: () => this.router.navigateByUrl('login'),
-      error: (err) => this.registerErrorMessage = err
+      error: (err) => this.registerErrorMessage = 'A user with that username already exists.'
     })
 }
 }

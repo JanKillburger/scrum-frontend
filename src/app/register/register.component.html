@@ -39,8 +39,13 @@
           required
         />
       </label>
-      <p class="text-error">{{ registerErrorMessage }}</p>
-      <p class="text-error" *ngIf="passwordInput.value !== confirmPasswordInput.value">Entered passwords are not the same.</p>
+      <p class="text-error" *ngIf="registerErrorMessage">{{ registerErrorMessage }}</p>
+      <p
+        class="text-error"
+        *ngIf="passwordInput.value !== confirmPasswordInput.value"
+      >
+        Entered passwords are not the same.
+      </p>
       <button
         class="btn btn-primary mt-4"
         type="submit"
