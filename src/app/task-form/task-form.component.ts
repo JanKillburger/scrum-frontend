@@ -45,11 +45,10 @@ export class TaskFormComponent implements OnChanges {
         id: null,
         title: '',
         description: '',
-        status: '0',
+        status: 'open',
         due_date: '',
         assigned_to: 0,
       });
-      this.addSubtask();
     } else {
       this.taskForm.reset({
         id: this.task.id,

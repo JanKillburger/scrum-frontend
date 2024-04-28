@@ -46,7 +46,7 @@ export class TasksService {
   }
 
   deleteTask(id: number) {
-    return this.http.delete(environment.apiUrl + `tasks/${id}`)
+    return this.http.delete(environment.apiUrl + `tasks/${id}/`)
   }
 
   getUsers() {

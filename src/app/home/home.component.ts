@@ -41,10 +41,11 @@ export class HomeComponent implements OnInit {
 
   updateListFromFormSubmission(resp: TaskResponse) {
     if (resp.action === "updatedTask") {
-      this.tasks = this.tasks.map(t => t.id === resp.task.id ? resp.task : t)
+      this.tasks = this.tasks.map(t => t.id === resp.task.id ? resp.task : t);
     } else if (resp.action === "createdTask") {
-      this.tasks.push(resp.task)
+      this.tasks.push(resp.task);
     }
-    this.taskdialog.nativeElement.close()
+    this.selectedTaskId = resp.task.id;
+    this.taskdialog.nativeElement.close();
   }
 }

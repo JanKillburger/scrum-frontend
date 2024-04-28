@@ -1,0 +1,58 @@
+<div class="min-h-screen flex flex-col justify-center px-2">
+  <div class="max-w-xl mx-auto">
+    <h1 class="my-4 text-5xl font-semibold sm:text-6xl">Scrumboard App</h1>
+    <h2 class="text-3xl font-semibold">Register Form</h2>
+    <form (ngSubmit)="register()">
+      <label for="username" class="form-control">
+        <span class="label">User name</span>
+        <input
+          class="input input-bordered"
+          type="text"
+          id="username"
+          #usernameInput
+          name="username"
+          [(ngModel)]="username"
+          required
+        />
+      </label>
+      <label for="password" class="form-control">
+        <span class="label">Password</span>
+        <input
+          class="input input-bordered"
+          type="password"
+          id="password"
+          #passwordInput
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+      </label>
+      <label for="confirmpassword" class="form-control">
+        <span class="label">Confirm Password</span>
+        <input
+          class="input input-bordered"
+          type="password"
+          id="confirmpassword"
+          #confirmPasswordInput
+          name="confirmpassword"
+          [(ngModel)]="confirmpassword"
+          required
+        />
+      </label>
+      <p class="text-error">{{ registerErrorMessage }}</p>
+      <p class="text-error" *ngIf="passwordInput.value !== confirmPasswordInput.value">Entered passwords are not the same.</p>
+      <button
+        class="btn btn-primary mt-4"
+        type="submit"
+        [disabled]="
+          usernameInput.validity.valueMissing ||
+          passwordInput.validity.valueMissing ||
+          confirmPasswordInput.validity.valueMissing ||
+          passwordInput.value !== confirmPasswordInput.value
+        "
+      >
+        Register
+      </button>
+    </form>
+  </div>
+</div>
