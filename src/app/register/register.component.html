@@ -14,6 +14,12 @@
           [(ngModel)]="username"
           required
         />
+        <p
+          class="text-error"
+          *ngFor="let error of usernameErrors"
+        >
+          {{ error }}
+        </p>
       </label>
       <label for="password" class="form-control">
         <span class="label">Password</span>
@@ -26,6 +32,12 @@
           [(ngModel)]="password"
           required
         />
+        <p
+          class="text-error"
+          *ngFor="let error of passwordErrors"
+        >
+          {{ error }}
+        </p>
       </label>
       <label for="confirmpassword" class="form-control">
         <span class="label">Confirm Password</span>
@@ -39,7 +51,9 @@
           required
         />
       </label>
-      <p class="text-error" *ngIf="registerErrorMessage">{{ registerErrorMessage }}</p>
+      <p class="text-error" *ngIf="registerErrorMessage">
+        {{ registerErrorMessage | json }}
+      </p>
       <p
         class="text-error"
         *ngIf="passwordInput.value !== confirmPasswordInput.value"

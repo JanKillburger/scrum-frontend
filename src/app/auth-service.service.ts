@@ -21,6 +21,16 @@ export class AuthServiceService {
       )
   }
 
+  registerUser(data: { username: string, password: string }) {
+    return this.http.post<RegisterResponse>(environment.apiUrl + 'register/', data)
+      .pipe(
+        map(res => {
+          localStorage.setItem("token", res.token);
+          localStorage.setItem("username", res.username);
+        })
+      )
+  }
+
   getAuthToken() {
     return localStorage.getItem('token');
   }
@@ -38,6 +48,11 @@ export class AuthServiceService {
     // Return an observable with a user-facing error message.
     return throwError(() => new Error('Something bad happened; please try again later.'));
   }
+}
+
+interface RegisterResponse {
+  username: string;
+  token: string;
 }
 
 interface LoginResponse {
